@@ -5,7 +5,6 @@
 ![JobRunr](https://img.shields.io/badge/JobRunr-4.0.0-orange)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-14-blue)
 ![Docker](https://img.shields.io/badge/Docker-Ready-blue)
-![License](https://img.shields.io/badge/License-MIT-green)
 
 A production-ready, distributed job scheduling system designed to offload long-running background tasks from a primary web application. This project demonstrates a complete, end-to-end implementation of a scalable and resilient microservice architecture, including persistent storage, a full observability stack, and complete containerization for easy deployment.
 
@@ -40,23 +39,7 @@ A production-ready, distributed job scheduling system designed to offload long-r
 
 The system is composed of four main services that are orchestrated by Docker Compose. They communicate with each other over a shared Docker network.
 
-```mermaid
-graph TD
-subgraph Your Machine
-User -- "1. curl/Python script" --> App_API
-end
-
-subgraph Docker Network
-    App_API[Spring Boot App<br>Port: 8080] -- "2. Writes job state" --> DB[(PostgreSQL<br>Port: 5432)]
-    App_API -- "3. Exposes metrics" --> Prometheus[Prometheus<br>/actuator/prometheus<br>Port: 9090]
-    JobRunr_Dashboard[JobRunr Dashboard<br>Port: 8000]
-    Prometheus -- "4. Scrapes metrics" --> App_API
-    Grafana[Grafana<br>Port: 3000] -- "5. Queries metrics" --> Prometheus
-end
-
-User -- "Views Dashboards" --> JobRunr_Dashboard
-User -- "Views Dashboards" --> Grafana
-```
+![Architecture Diagram](./arch.svg)
 
 ---
 
